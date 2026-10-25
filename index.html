@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="theme-color" content="#14163a" />
+    <meta name="description" content="Arena Pokémon: batalhas em tempo real. Projeto de fã sem fins lucrativos, feito como presente de aniversário. Criado por Francisco Audir (@filho.af)." />
+    <title>Arena Pokémon</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ccircle cx='8' cy='8' r='7' fill='%23f4f4f4' stroke='%23121218' stroke-width='1.5'/%3E%3Cpath d='M1 8a7 7 0 0 1 14 0z' fill='%23e3350d' stroke='%23121218' stroke-width='1.5'/%3E%3Ccircle cx='8' cy='8' r='2' fill='%23fff' stroke='%23121218' stroke-width='1.2'/%3E%3C/svg%3E" />
+    <style>
+      /* tela de carregamento: aparece antes de qualquer script */
+      #carregando { position: fixed; inset: 0; z-index: 100; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px; background: radial-gradient(ellipse at 50% 35%, #2a2f7a, #0b0c1c 70%); color: #fff; font-family: "Segoe UI", system-ui, sans-serif; transition: opacity 0.4s; }
+      #carregando .bola { width: 84px; height: 84px; border-radius: 50%; border: 6px solid #121218; background: linear-gradient(#e3350d 0 46%, #121218 46% 54%, #f4f4f4 54%); position: relative; animation: rola 1s ease-in-out infinite; box-shadow: 6px 6px 0 rgba(0,0,0,0.4); }
+      #carregando .bola::after { content: ''; position: absolute; left: 50%; top: 50%; width: 22px; height: 22px; margin: -17px; border-radius: 50%; background: #fff; border: 6px solid #121218; }
+      @keyframes rola { 0%, 100% { transform: rotate(-18deg); } 50% { transform: rotate(18deg) translateY(-6px); } }
+      #carregando .barra { width: min(320px, 70vw); height: 12px; border: 3px solid #fff; padding: 2px; }
+      #carregando .barra i { display: block; height: 100%; width: 3%; background: #ffcb05; transition: width 0.2s; }
+      #carregando .txt { font-weight: 800; letter-spacing: 2px; color: #ffcb05; }
+      #carregando .legal { position: absolute; bottom: 10px; font-size: 11px; color: #9a9cc0; text-align: center; padding: 0 16px; }
+    </style>
+    <script type="module" crossorigin src="./assets/index-VadoJrN2.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-BCYUCQup.css">
+  </head>
+  <body>
+    <div id="game"></div>
+    <div id="ui"></div>
+    <div id="carregando">
+      <div class="bola"></div>
+      <div class="txt">CARREGANDO…</div>
+      <div class="barra"><i></i></div>
+      <div class="legal">Projeto de fã sem fins lucrativos · Pokémon pertence à Nintendo, Game Freak e Creatures · Criado por Francisco Audir (@filho.af)</div>
+    </div>
+  </body>
+</html>
