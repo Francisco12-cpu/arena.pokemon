@@ -1,6 +1,6 @@
 // Guarda os arquivos do jogo no aparelho: depois da primeira visita, Treino e Contra o computador
 // funcionam sem internet. Primeiro tenta a rede (para pegar versões novas) e, sem rede, usa a cópia.
-const CACHE = 'arena-pokemon-v2';
+const CACHE = 'arena-pokemon-v4';
 
 self.addEventListener('install', (e) => {
   e.waitUntil(caches.open(CACHE).then((c) => c.addAll(['./', './index.html', './manifest.webmanifest', './icons/icone-192.png', './icons/icone-512.png'])).then(() => self.skipWaiting()));

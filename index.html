@@ -8,33 +8,74 @@
     <meta name="theme-color" content="#14163a" />
     <meta name="description" content="Arena Pokémon: batalhas em tempo real. Projeto de fã sem fins lucrativos, feito como presente de aniversário. Criado por Francisco Audir (@filho.af)." />
     <title>Arena Pokémon</title>
+    <!-- prévia do link (WhatsApp, Instagram, Discord, Twitter) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Arena Pokémon · batalhas em tempo real" />
+    <meta property="og:description" content="16 Pokémon, 96 golpes, online com amigos, no celular e no PC. Projeto de fã sem fins lucrativos de Francisco Audir (@filho.af)." />
+    <meta property="og:image" content="https://francisco12-cpu.github.io/arena.pokemon/icons/icone-512.png" />
+    <meta property="og:url" content="https://francisco12-cpu.github.io/arena.pokemon/" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta name="twitter:card" content="summary" />
     <!-- PWA: instala na tela inicial e abre em tela cheia, deitado -->
     <link rel="manifest" href="./manifest.webmanifest" />
     <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ccircle cx='8' cy='8' r='7' fill='%23f4f4f4' stroke='%23121218' stroke-width='1.5'/%3E%3Cpath d='M1 8a7 7 0 0 1 14 0z' fill='%23e3350d' stroke='%23121218' stroke-width='1.5'/%3E%3Ccircle cx='8' cy='8' r='2' fill='%23fff' stroke='%23121218' stroke-width='1.2'/%3E%3C/svg%3E" />
+    <link rel="icon" type="image/png" href="./icons/favicon.png" />
     <style>
-      /* tela de carregamento: aparece antes de qualquer script */
-      #carregando { position: fixed; inset: 0; z-index: 100; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px; background: radial-gradient(ellipse at 50% 35%, #2a2f7a, #0b0c1c 70%); color: #fff; font-family: "Segoe UI", system-ui, sans-serif; transition: opacity 0.4s; }
-      #carregando .bola { width: 84px; height: 84px; border-radius: 50%; border: 6px solid #121218; background: linear-gradient(#e3350d 0 46%, #121218 46% 54%, #f4f4f4 54%); position: relative; animation: rola 1s ease-in-out infinite; box-shadow: 6px 6px 0 rgba(0,0,0,0.4); }
-      #carregando .bola::after { content: ''; position: absolute; left: 50%; top: 50%; width: 22px; height: 22px; margin: -17px; border-radius: 50%; background: #fff; border: 6px solid #121218; }
-      @keyframes rola { 0%, 100% { transform: rotate(-18deg); } 50% { transform: rotate(18deg) translateY(-6px); } }
-      #carregando .barra { width: min(320px, 70vw); height: 12px; border: 3px solid #fff; padding: 2px; }
-      #carregando .barra i { display: block; height: 100%; width: 3%; background: #ffcb05; transition: width 0.2s; }
-      #carregando .txt { font-weight: 800; letter-spacing: 2px; color: #ffcb05; }
+      /* tela de carregamento: aparece antes de qualquer script. O ícone do jogo no meio de raios girando,
+         título, barra em forma de Pokébola com porcentagem e dicas que trocam sozinhas. */
+      @font-face { font-family: Bangers; src: url(./fonts/Bangers.ttf); font-display: swap; }
+      #carregando { position: fixed; inset: 0; z-index: 100; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: min(2.4vh, 18px); overflow: hidden;
+        background: #14163a; color: #fff; font-family: "Segoe UI", system-ui, sans-serif; transition: opacity 0.45s; }
+      #carregando::before { content: ''; position: absolute; left: 50%; top: 42%; width: 260vmax; height: 260vmax; margin: -130vmax; z-index: -2;
+        background: repeating-conic-gradient(from 0deg, #2b2f86 0deg 10deg, #1a1d5c 10deg 20deg); animation: raios 24s linear infinite; }
+      #carregando::after { content: ''; position: absolute; inset: 0; z-index: -1; background: radial-gradient(circle at 50% 42%, rgba(255, 220, 120, 0.28), transparent 38%), radial-gradient(ellipse at 50% 50%, transparent 40%, rgba(5, 6, 20, 0.85)); }
+      @keyframes raios { to { transform: rotate(360deg); } }
+      #carregando .logo { width: min(34vh, 230px); height: min(34vh, 230px); border-radius: 26%; background: url(./icons/icone-512.png) center / cover; box-shadow: 0 10px 0 rgba(0, 0, 0, 0.35), 0 0 60px rgba(255, 200, 60, 0.35);
+        animation: logo-entra 0.6s cubic-bezier(.2, 1.6, .4, 1) both, logo-pula 1.6s 0.6s ease-in-out infinite; }
+      @keyframes logo-entra { from { transform: scale(0.3) rotate(-20deg); opacity: 0; } }
+      @keyframes logo-pula { 0%, 100% { transform: translateY(0) rotate(-2deg); } 50% { transform: translateY(-8px) rotate(2deg); } }
+      #carregando h1 { margin: 0; font: 400 min(8vh, 56px) Bangers, "Arial Black", sans-serif; letter-spacing: 3px; color: #ffcb05;
+        text-shadow: 0 5px 0 #b3261e, 3px 0 0 #b3261e, -3px 0 0 #b3261e, 0 -3px 0 #b3261e, 0 9px 0 rgba(0, 0, 0, 0.4); }
+      #carregando .barra { position: relative; width: min(380px, 72vw); height: 22px; border-radius: 12px; background: #0b0c22; border: 3px solid #121218; box-shadow: 0 0 0 3px #fff, 0 6px 0 3px rgba(0, 0, 0, 0.35); overflow: hidden; }
+      #carregando .barra i { display: block; height: 100%; width: 3%; border-radius: 9px; transition: width 0.25s;
+        background: linear-gradient(180deg, #ff6a4d, #e3350d 55%, #b3261e); box-shadow: inset 0 3px 0 rgba(255, 255, 255, 0.35);
+        background-image: linear-gradient(180deg, rgba(255,255,255,0.25), transparent 50%), repeating-linear-gradient(-45deg, #e3350d 0 12px, #f0502c 12px 24px); background-size: auto, 34px 100%; animation: listras 0.6s linear infinite; }
+      @keyframes listras { to { background-position: 0 0, 34px 0; } }
+      #carregando .barra b { position: absolute; inset: 0; display: grid; place-items: center; font-size: 12px; font-weight: 800; letter-spacing: 1px; text-shadow: 0 1px 2px #000; }
+      #carregando .dica { min-height: 2.6em; max-width: min(520px, 86vw); text-align: center; font-size: clamp(12px, 2.1vh, 15px); color: #cfd4ff; line-height: 1.3; transition: opacity 0.3s; }
+      #carregando .dica strong { color: #ffcb05; }
       #carregando .legal { position: absolute; bottom: 10px; font-size: 11px; color: #9a9cc0; text-align: center; padding: 0 16px; }
     </style>
-    <script type="module" crossorigin src="./assets/index-Dbn33O0a.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-Dph357KN.css">
+    <script type="module" crossorigin src="./assets/index-wxAK74qB.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-CprpMW4A.css">
   </head>
   <body>
     <div id="game"></div>
     <div id="ui"></div>
     <div id="carregando">
-      <div class="bola"></div>
-      <div class="txt">CARREGANDO…</div>
-      <div class="barra"><i></i></div>
+      <div class="logo" role="img" aria-label="Arena Pokémon"></div>
+      <h1>ARENA POKÉMON</h1>
+      <div class="barra"><i></i><b>0%</b></div>
+      <div class="dica"></div>
       <div class="legal">Projeto de fã sem fins lucrativos · Pokémon pertence à Nintendo, Game Freak e Creatures · Criado por Francisco Audir (@filho.af)</div>
     </div>
+    <script>
+      // dicas do carregamento (trocam a cada 2,6 s; o main.ts tira a tela quando o jogo fica pronto)
+      (function () {
+        var d = [
+          '<strong>Dica:</strong> arraste o botão do golpe para mirar e solte para atacar.',
+          '<strong>Dica:</strong> um toque rápido no botão ataca o rival mais perto.',
+          '<strong>Dica:</strong> fogo vence planta, água vence fogo, planta vence água.',
+          '<strong>Dica:</strong> golpes iguais batendo de frente viram um cabo de guerra: aperte rápido!',
+          '<strong>Dica:</strong> Voo e Cavar desviam de quase tudo, mas não ficam para sempre.',
+          '<strong>Dica:</strong> trocar de Pokémon salva quem está com pouca vida.',
+          '<strong>Dica:</strong> na Sala de Testes você treina todos os golpes sem perder.',
+        ];
+        var el = document.querySelector('#carregando .dica'), i = Math.floor(Math.random() * d.length);
+        function mostra() { if (!el || !el.isConnected) return; el.style.opacity = '0'; setTimeout(function () { el.innerHTML = d[i++ % d.length]; el.style.opacity = '1'; }, 300); }
+        mostra(); var t = setInterval(function () { if (!el.isConnected) clearInterval(t); else mostra(); }, 2600);
+      })();
+    </script>
   </body>
 </html>
